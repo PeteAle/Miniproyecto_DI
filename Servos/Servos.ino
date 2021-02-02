@@ -2,6 +2,7 @@
 
 #include <Servo.h>
 
+int inData = 0;
 int boton_inc = 8;  // Botón para incrementar el valor del servo (movimiento derecho).
 int boton_dec = 7;  // Botón para decrementar el valor del servo (movimiento izquierdo).
 int press_inc = 0;  // Variable de estado del botón de incremento.
@@ -12,6 +13,7 @@ Servo servo1;
 
 void setup() {
   // put your setup code here, to run once:
+  Serial.begin(9600);
   servoMotor.attach(9);
   pinMode(boton_inc, INPUT);
   pinMode(boton_dec, INPUT);
@@ -21,6 +23,10 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+  if (Serial.available() > 0) {
+    // read the incoming byte:
+    inData = Serial.read();
+  }
   press_inc = digitalRead(boton_inc);
   if (press_inc == LOW){
     servo1.write(++giro);
