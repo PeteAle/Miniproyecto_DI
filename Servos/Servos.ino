@@ -2,104 +2,90 @@
 
 #include <Servo.h>
 
-const char longitud = 16;
-char inData = ' ';
-char index = 0;
+const byte longitud = 32;
 char recibido [longitud];
 char tempChars [longitud];
+
+char inData;
+char indice = 0;
+static boolean recibiendo = false;
+char inicio = '<';
+char fin = '>';
+
 int primerServo;
 int segundoServo;
 int tercerServo;
 int cuartoServo;
-#define corte ','
-#define inicio '<'
-#define fin '>'
-int giro = 0;
+
+boolean datosNuevos = false;
 
 Servo servo1;
 
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(115200);
-
-  Serial.println("Arduino conectado.");
-  
   servo1.attach(9);
+  Serial.begin(115200);
+  Serial.println("Arduino conectado.");
 
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
   recibirConMarcador();
-  strcpy(tempChars, recibido);
-  separarDatos();
-  showParsedData();
-  /*if (Serial.available() > 0) {
-    // read the incoming byte:   
-    inData = Serial.read();
-    if (inData != corte){
-      recibido[index] = inData;
-      index = index + 1;
-      if (index > longitud){
-        index = longitud - 1;
-      }
-    }
-    else if (inData == corte){
-      recibido[index] = '\0';
-      index = 0;
-      primerServo = atoi(recibido);
-      segundoServo = atoi(recibido);
-    }
-    Serial.print("Primer servo: ");
-    Serial.println(primerServo);
-    Serial.print("Segundo servo: ");
-    Serial.println(segundoServo);
-    servo1.write(primerServo);
-    delay(15);
-  }*/
+  if (datosNuevos == true){
+    strcpy(tempChars, recibido);
+    separarDatos();
+    showParsedData();
+    datosNuevos = false;
+  }
 }
 
-// ------------- Funciones adicionales -----------------------
+// ------------------ Recibir los datos y guardalos -----------------------
 
 void recibirConMarcador(){
-  static boolean recibiendo = false;
-  while(Serial.available() > 0){
+    
+  while(Serial.available() > 0 && datosNuevos == false){
     inData = Serial.read();
     if (recibiendo == true){
       if (inData != fin){
-      recibido[index] = inData;
-      index = index + 1;
+        recibido[indice] = inData;
+        indice++;
+        if (indice >= longitud){
+          indice = longitud - 1;
+        }
       }
-      if (index > longitud){
-        index = longitud - 1;
+       else{
+        recibido[indice] = '\0';
+        indice = 0;
+        recibiendo = false;
+        datosNuevos = true;
       }
     }
-    else{
-      recibido[index] = '\0';
-      index = 0;
-      recibiendo = false;
-    }
-    if (inData == inicio){
+    else if (inData == inicio){
       recibiendo = true;
     }
   }
 }
 
+// ------------------------ Separar los datos en el arduino -------------------
+
 void separarDatos(){
   char * token;
-  token = strtok(recibido, ',');
+  
+  token = strtok(recibido, ",");
   primerServo = atoi(token);
 
-  token = strtok(NULL, ',');
+  token = strtok(NULL, ",");
   segundoServo = atoi(token);
 
-  token = strtok(NULL, ',');
+  token = strtok(NULL, ",");
   tercerServo = atoi(token);
 
-  token = strtok(NULL, ',');
+  token = strtok(NULL, ",");
   cuartoServo = atoi(token);
 }
 
+// ------------------ Mostrar datos en el monitor -------------------
 
 void showParsedData() {
     Serial.print("Primer servo:  ");
