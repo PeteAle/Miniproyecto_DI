@@ -97,3 +97,11 @@ void showParsedData() {
     Serial.print("Cuarto servo: ");
     Serial.println(cuartoServo);
 }
+
+
+// ---------------------- Escribir datos al servo para moverlos -----------------
+
+void servoWrite(){
+  primer_servo = map()
+  servo1.write()
+}
