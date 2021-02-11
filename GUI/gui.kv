@@ -1,182 +1,220 @@
 <main>
-	GridLayout:
-		cols: 1
+	FloatLayout:
 		size: root.width, root.height
 
 		Label:
-			text_size: self.size
+			text: "Peter Yau 17914"
+			font_size: 14
+			pos_hint: {"center_x": 0.07, "center_y": 0.98}
+			color: (1,1,1,1)
+
+		Label:
 			text: "[b]GUI para controlar el brazo[/b]"
 			font_size: 28
 			markup: True
-			size: root.width, root.height/10
-			halign: 'center'
-			valign: 'middle'
+			pos_hint: {"center_x":0.5, "center_y": 0.95}
 			color: (1,1,1,1)
 
-		GridLayout:
-			cols: 3
-			#size: root.width, root.height
+		# --------------- Imágenes de referencia superiores para los servos ---------------------
 
-			Button:
-				source: 'Niryo_prueba.png'
-				size_hint: (None,None)
-				size: root.width/3, root.height/7
-				halign: 'center'
+		Image:
+			source: "joint_base.png"
+			size_hint: None, None
+			size: 170, 170
+			pos_hint: {"center_x":0.2, "center_y": 0.75}
 
-			Button:
-				text: 'probando'
-				size_hint: (None,None)
-				size: root.width/3, root.height/7
-				halign: 'center'
+		Image:
+			source: "joint1.png"
+			size_hint: None, None
+			size: 170, 170
+			pos_hint: {"center_x":0.5, "center_y": 0.75}
 
-			Button:
-				text: 'probando'
-				size_hint: (None,None)
-				size: root.width/3, root.height/7
-				halign: 'center'
+		Image:
+			source: "joint2.png"
+			size_hint: None, None
+			size: 170, 170
+			pos_hint: {"center_x":0.8, "center_y": 0.75}
 
-		GridLayout:
-			cols: 3
-			#size: root.width, root.height
+		# --------------- Imágenes de referencia inferiores para los servos ---------------------
 
-			Button:
-				source: 'Niryo_prueba.png'
-				size_hint: (None,None)
-				size: root.width/3, root.height/7
-				halign: 'center'
+		Image:
+			source: "joint_garra.png"
+			size_hint: None, None
+			size: 150, 150
+			pos_hint: {"center_x":0.33, "center_y": 0.3}
 
-			Button:
-				text: 'probando'
-				size_hint: (None,None)
-				size: root.width/3, root.height/7
-				halign: 'center'
+		Image:
+			source: "stepper.png"
+			size_hint: None, None
+			size: 190, 190
+			pos_hint: {"center_x":0.66, "center_y": 0.3}
 
-			Button:
-				text: 'probando'
-				size_hint: (None,None)
-				size: root.width/3, root.height/7
-				halign: 'center'
+		# ----------------------- Botones para cada servo -------------------------
+		# ----------------------- Botones del primer servo ------------------------
 
-		GridLayout:
-			cols: 6
-			#size: root.width, root.height
+		Button:
+			id: servo1_izquierda
+			size_hint: None, None
+			size: 70, 70
+			pos_hint: {"center_x":0.15, "center_y": 0.55}
+			
+			Image:
+				source: 'rotar_izq_servo.png'
+				size_hint: None, None
+				size: 60, 60
 
-			Button:
-				source: 'Niryo_prueba.png'
-				size_hint: (None,None)
-				size: root.width/6, root.height/7
-				halign: 'center'
+				# Usar pos_hint para colocar imágenes como children de los botones no funciona, hay que usar el center_x y center_y para ello.
 
-			Button:
-				text: 'probando'
-				size_hint: (None,None)
-				size: root.width/6, root.height/7
-				halign: 'center'
+				center_x: self.parent.center_x
+				center_y: self.parent.center_y
 
-			Button:
-				text: 'probando'
-				size_hint: (None,None)
-				size: root.width/6, root.height/7
-				halign: 'center'
+		Button:
+			id: servo1_derecha
+			size_hint: None, None
+			size: 70, 70
+			pos_hint: {"center_x":0.25, "center_y": 0.55}
+			
+			Image:
+				source: 'rotar_der_servo.png'
+				size_hint: None, None
+				size: 60, 60
 
-			Button:
-				source: 'Niryo_prueba.png'
-				size_hint: (None,None)
-				size: root.width/6, root.height/7
-				halign: 'center'
+				# Usar pos_hint para colocar imágenes como children de los botones no funciona, hay que usar el center_x y center_y para ello.
 
-			Button:
-				text: 'probando'
-				size_hint: (None,None)
-				size: root.width/6, root.height/7
-				halign: 'center'
+				center_x: self.parent.center_x
+				center_y: self.parent.center_y
 
-			Button:
-				text: 'probando'
-				size_hint: (None,None)
-				size: root.width/6, root.height/7
-				halign: 'center'
+		# ------------------------- Botones del segundo servo -------------------------
 
-		GridLayout:
-			cols: 3
-			size: root.width, root.height
+		Button:
+			size_hint: None, None
+			size: 70, 70
+			pos_hint: {"center_x":0.45, "center_y": 0.55}
+			
+			Image:
+				source: 'rotar_izq_servo.png'
+				size_hint: None, None
+				size: 60, 60
 
-			Button:
-				source: 'Niryo_prueba.png'
-				size_hint: (None,None)
-				size: root.width/3, root.height/7
-				halign: 'center'
+				# Usar pos_hint para colocar imágenes como children de los botones no funciona, hay que usar el center_x y center_y para ello.
 
-			Button:
-				text: 'probando'
-				size_hint: (None,None)
-				size: root.width/3, root.height/7
-				halign: 'center'
+				center_x: self.parent.center_x
+				center_y: self.parent.center_y
 
-			Button:
-				text: 'probando'
-				size_hint: (None,None)
-				size: root.width/3, root.height/7
-				halign: 'center'
+		Button:
+			size_hint: None, None
+			size: 70, 70
+			pos_hint: {"center_x":0.55, "center_y": 0.55}
+			
+			Image:
+				source: 'rotar_der_servo.png'
+				size_hint: None, None
+				size: 60, 60
 
-		GridLayout:
-			cols: 3
-			#size: root.width, root.height
+				# Usar pos_hint para colocar imágenes como children de los botones no funciona, hay que usar el center_x y center_y para ello.
 
-			Button:
-				source: 'Niryo_prueba.png'
-				size_hint: (None,None)
-				size: root.width/3, root.height/7
-				halign: 'center'
+				center_x: self.parent.center_x
+				center_y: self.parent.center_y
 
-			Button:
-				text: 'probando'
-				size_hint: (None,None)
-				size: root.width/3, root.height/7
-				halign: 'center'
+		# ---------------------------- Botones del tercer servo -------------------------
 
-			Button:
-				text: 'probando'
-				size_hint: (None,None)
-				size: root.width/3, root.height/7
-				halign: 'center'
+		Button:
+			size_hint: None, None
+			size: 70, 70
+			pos_hint: {"center_x":0.75, "center_y": 0.55}
+			
+			Image:
+				source: 'rotar_izq_servo.png'
+				size_hint: None, None
+				size: 60, 60
 
-		GridLayout:
-			cols: 6
-			#size: root.width, root.height
+				# Usar pos_hint para colocar imágenes como children de los botones no funciona, hay que usar el center_x y center_y para ello.
 
-			Button:
-				source: 'Niryo_prueba.png'
-				size_hint: (None,None)
-				size: root.width/6, root.height/7
-				halign: 'center'
+				center_x: self.parent.center_x
+				center_y: self.parent.center_y
 
-			Button:
-				text: 'probando'
-				size_hint: (None,None)
-				size: root.width/6, root.height/7
-				halign: 'center'
+		Button:
+			size_hint: None, None
+			size: 70, 70
+			pos_hint: {"center_x":0.85, "center_y": 0.55}
+			
+			Image:
+				source: 'rotar_der_servo.png'
+				size_hint: None, None
+				size: 60, 60
 
-			Button:
-				text: 'probando'
-				size_hint: (None,None)
-				size: root.width/6, root.height/7
-				halign: 'center'
+				# Usar pos_hint para colocar imágenes como children de los botones no funciona, hay que usar el center_x y center_y para ello.
 
-			Button:
-				source: 'Niryo_prueba.png'
-				size_hint: (None,None)
-				size: root.width/6, root.height/7
-				halign: 'center'
+				center_x: self.parent.center_x
+				center_y: self.parent.center_y
 
-			Button:
-				text: 'probando'
-				size_hint: (None,None)
-				size: root.width/6, root.height/7
-				halign: 'center'
+		# ------------------------------ Botones del cuarto servo ----------------------------
 
-			Button:
-				text: 'probando'
-				size_hint: (None,None)
-				size: root.width/6, root.height/7
-				halign: 'center'
+		Button:
+			size_hint: None, None
+			size: 70, 70
+			pos_hint: {"center_x":0.278, "center_y": 0.1}
+			
+			Image:
+				source: 'abrir.png'
+				size_hint: None, None
+				size: 60, 60
+
+				# Usar pos_hint para colocar imágenes como children de los botones no funciona, hay que usar el center_x y center_y para ello.
+
+				center_x: self.parent.center_x
+				center_y: self.parent.center_y
+
+		Button:
+			size_hint: None, None
+			size: 70, 70
+			pos_hint: {"center_x":0.378, "center_y": 0.1}
+			
+			Image:
+				source: 'cerrar.png'
+				size_hint: None, None
+				size: 60, 60
+
+				# Usar pos_hint para colocar imágenes como children de los botones no funciona, hay que usar el center_x y center_y para ello.
+
+				center_x: self.parent.center_x
+				center_y: self.parent.center_y
+
+		# ---------------- Entrada de texto para que el usuario pueda ingresar número de steps para el servo -------------
+
+		TextInput:
+			size_hint: None, None
+			size: 100, 30
+			pos_hint: {"center_x":0.66, "center_y": 0.16}
+			input_type: 'number'
+			multiline: False
+
+		Button:
+			size_hint: None, None
+			size: 70, 50
+			pos_hint: {"center_x":0.61, "center_y": 0.08}
+			
+			Image:
+				source: 'rotar_izq_stepper.png'
+				size_hint: None, None
+				size: 60, 60
+
+				# Usar pos_hint para colocar imágenes como children de los botones no funciona, hay que usar el center_x y center_y para ello.
+
+				center_x: self.parent.center_x
+				center_y: self.parent.center_y
+
+		Button:
+			size_hint: None, None
+			size: 70, 50
+			pos_hint: {"center_x":0.71, "center_y": 0.08}
+			
+			Image:
+				source: 'rotar_der_stepper.png'
+				size_hint: None, None
+				size: 60, 60
+
+				# Usar pos_hint para colocar imágenes como children de los botones no funciona, hay que usar el center_x y center_y para ello.
+
+				center_x: self.parent.center_x
+				center_y: self.parent.center_y

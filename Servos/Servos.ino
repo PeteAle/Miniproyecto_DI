@@ -12,19 +12,25 @@ static boolean recibiendo = false;
 char inicio = '<';
 char fin = '>';
 
-int primerServo;
-int segundoServo;
-int tercerServo;
-int cuartoServo;
+int primerServo;  int primer_servo;
+int segundoServo; int segundo_servo;
+int tercerServo;  int tercer_servo;
+int cuartoServo;  int cuarto_servo;
 
 boolean datosNuevos = false;
 
 Servo servo1;
+Servo servo2;
+Servo servo3;
+Servo servo4;
 
 void setup() {
   // put your setup code here, to run once:
-  servo1.attach(9);
-  Serial.begin(115200);
+  servo1.attach(11);
+  servo2.attach(10);
+  servo3.attach(9);
+  servo4.attach(6);
+  Serial.begin(9600);
   Serial.println("Arduino conectado.");
 
 }
@@ -37,7 +43,10 @@ void loop() {
     separarDatos();
     showParsedData();
     datosNuevos = false;
+    servoWrite();
   }
+  //Serial.println("Probando");
+  delay(100);
 }
 
 // ------------------ Recibir los datos y guardalos -----------------------
@@ -102,6 +111,12 @@ void showParsedData() {
 // ---------------------- Escribir datos al servo para moverlos -----------------
 
 void servoWrite(){
-  primer_servo = map()
-  servo1.write()
+  primer_servo = map(primerServo, 0, 180, -90, 90);
+  servo1.write(primer_servo);
+  segundo_servo = map(segundoServo, 0, 180, -90, 90);
+  servo2.write(segundo_servo);
+  tercer_servo = map(tercerServo, 0, 180, -90, 90);
+  servo3.write(tercer_servo);
+  cuarto_servo = map(cuartoServo, 0, 180, -90, 90);
+  servo4.write(cuarto_servo);
 }
