@@ -26,11 +26,11 @@ Servo servo4;
 
 void setup() {
   // put your setup code here, to run once:
-  servo1.attach(11);
-  servo2.attach(10);
-  servo3.attach(9);
-  servo4.attach(6);
-  Serial.begin(9600);
+  servo1.attach(11, 1000, 2000);
+  servo2.attach(10, 1000, 2000);
+  servo3.attach(9, 1000, 2000);
+  servo4.attach(6, 1000, 2000);
+  Serial.begin(115200);
   Serial.println("Arduino conectado.");
 
 }
@@ -41,9 +41,9 @@ void loop() {
   if (datosNuevos == true){
     strcpy(tempChars, recibido);
     separarDatos();
-    showParsedData();
     datosNuevos = false;
     servoWrite();
+    showParsedData();
   }
   //Serial.println("Probando");
   delay(100);
@@ -59,7 +59,7 @@ void recibirConMarcador(){
       if (inData != fin){
         recibido[indice] = inData;
         indice++;
-        if (indice >= longitud){
+        if (indice > longitud){
           indice = longitud - 1;
         }
       }
@@ -107,16 +107,15 @@ void showParsedData() {
     Serial.println(cuartoServo);
 }
 
-
 // ---------------------- Escribir datos al servo para moverlos -----------------
 
 void servoWrite(){
-  primer_servo = map(primerServo, 0, 180, -90, 90);
-  servo1.write(primer_servo);
-  segundo_servo = map(segundoServo, 0, 180, -90, 90);
-  servo2.write(segundo_servo);
-  tercer_servo = map(tercerServo, 0, 180, -90, 90);
-  servo3.write(tercer_servo);
-  cuarto_servo = map(cuartoServo, 0, 180, -90, 90);
-  servo4.write(cuarto_servo);
+  primer_servo = map(primerServo, 0, 180, 0, 180);
+  servo1.write(primerServo);
+  segundo_servo = map(segundoServo, 0, 180, 0, 180);
+  servo2.write(segundoServo);
+  tercer_servo = map(tercerServo, 0, 180, 0, 180);
+  servo3.write(tercerServo);
+  cuarto_servo = map(cuartoServo, 0, 180, 0, 180);
+  servo4.write(cuartoServo);
 }

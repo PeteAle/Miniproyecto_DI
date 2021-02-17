@@ -26,13 +26,13 @@
 		Image:
 			source: "joint1.png"
 			size_hint: None, None
-			size: 170, 170
+			size: 160, 160
 			pos_hint: {"center_x":0.5, "center_y": 0.75}
 
 		Image:
 			source: "joint2.png"
 			size_hint: None, None
-			size: 170, 170
+			size: 160, 160
 			pos_hint: {"center_x":0.8, "center_y": 0.75}
 
 		# --------------- Imágenes de referencia inferiores para los servos ---------------------
@@ -41,124 +41,102 @@
 			source: "joint_garra.png"
 			size_hint: None, None
 			size: 150, 150
-			pos_hint: {"center_x":0.33, "center_y": 0.3}
+			pos_hint: {"center_x":0.33, "center_y": 0.34}
 
 		Image:
 			source: "stepper.png"
 			size_hint: None, None
 			size: 190, 190
-			pos_hint: {"center_x":0.66, "center_y": 0.3}
+			pos_hint: {"center_x":0.66, "center_y": 0.34}
 
-		# ----------------------- Botones para cada servo -------------------------
-		# ----------------------- Botones del primer servo ------------------------
+		# ----------------------- Sliders para cada servo -------------------------
+		# ----------------------- Slider del primer servo -------------------------
 
-		Button:
-			id: servo1_izquierda
-			size_hint: None, None
-			size: 70, 70
-			pos_hint: {"center_x":0.15, "center_y": 0.55}
-			
-			Image:
-				source: 'rotar_izq_servo.png'
-				size_hint: None, None
-				size: 60, 60
+		Slider:
+			id: servo1
+			min: 0
+			max: 180
+			value: 90
+			step: 1
+			orientation: 'horizontal'
+			size_hint_x: 0.29
+			pos_hint: {"center_x":0.2, "center_y": 0.54}
+			on_value: root.slider1(*args)
 
-				# Usar pos_hint para colocar imágenes como children de los botones no funciona, hay que usar el center_x y center_y para ello.
+		Label:
+			text: str(servo1.value)
+			font_size: 16
+			pos_hint: {"center_x":0.2, "center_y": 0.49}
 
-				center_x: self.parent.center_x
-				center_y: self.parent.center_y
+		# ------------------------------ Posición inicial servo 1 -------------------------
 
-		Button:
-			id: servo1_derecha
-			size_hint: None, None
-			size: 70, 70
-			pos_hint: {"center_x":0.25, "center_y": 0.55}
-			
-			Image:
-				source: 'rotar_der_servo.png'
-				size_hint: None, None
-				size: 60, 60
+		Label:
+			text: "Pos. Inicial: 0"
+			font_size: 16
+			pos_hint: {"center_x":0.2,"center_y":0.62}
 
-				# Usar pos_hint para colocar imágenes como children de los botones no funciona, hay que usar el center_x y center_y para ello.
+		# ------------------------- Slider del segundo servo -------------------------
 
-				center_x: self.parent.center_x
-				center_y: self.parent.center_y
+		Slider:
+			id: servo2
+			min: 0
+			max: 180
+			value: 90
+			step: 1
+			orientation: 'horizontal'
+			size_hint_x: 0.29
+			pos_hint: {"center_x":0.5, "center_y": 0.54}
+			on_value: root.slider2(*args)
 
-		# ------------------------- Botones del segundo servo -------------------------
+		Label:
+			text: str(servo2.value)
+			font_size: 16
+			pos_hint: {"center_x":0.5, "center_y": 0.49}
 
-		Button:
-			size_hint: None, None
-			size: 70, 70
-			pos_hint: {"center_x":0.45, "center_y": 0.55}
-			
-			Image:
-				source: 'rotar_izq_servo.png'
-				size_hint: None, None
-				size: 60, 60
+		# ------------------------------ Posición servo 2 -----------------------------
 
-				# Usar pos_hint para colocar imágenes como children de los botones no funciona, hay que usar el center_x y center_y para ello.
+		Label:
+			text: "Pos. Inicial: 0"
+			font_size: 16
+			pos_hint: {"center_x":0.5,"center_y":0.62}
 
-				center_x: self.parent.center_x
-				center_y: self.parent.center_y
+		# ---------------------------- Slider del tercer servo -------------------------
 
-		Button:
-			size_hint: None, None
-			size: 70, 70
-			pos_hint: {"center_x":0.55, "center_y": 0.55}
-			
-			Image:
-				source: 'rotar_der_servo.png'
-				size_hint: None, None
-				size: 60, 60
+		Slider:
+			id: servo3
+			min: 0
+			max: 180
+			value: 90
+			step: 1
+			orientation: 'horizontal'
+			size_hint_x: 0.29
+			pos_hint: {"center_x":0.8, "center_y": 0.54}
+			on_value: root.slider3(*args)
 
-				# Usar pos_hint para colocar imágenes como children de los botones no funciona, hay que usar el center_x y center_y para ello.
+		Label:
+			text: str(servo3.value)
+			font_size: 16
+			pos_hint: {"center_x":0.8,"center_y":0.49}
 
-				center_x: self.parent.center_x
-				center_y: self.parent.center_y
+		# ------------------------------ Posición servo 3 -----------------------------
 
-		# ---------------------------- Botones del tercer servo -------------------------
-
-		Button:
-			size_hint: None, None
-			size: 70, 70
-			pos_hint: {"center_x":0.75, "center_y": 0.55}
-			
-			Image:
-				source: 'rotar_izq_servo.png'
-				size_hint: None, None
-				size: 60, 60
-
-				# Usar pos_hint para colocar imágenes como children de los botones no funciona, hay que usar el center_x y center_y para ello.
-
-				center_x: self.parent.center_x
-				center_y: self.parent.center_y
-
-		Button:
-			size_hint: None, None
-			size: 70, 70
-			pos_hint: {"center_x":0.85, "center_y": 0.55}
-			
-			Image:
-				source: 'rotar_der_servo.png'
-				size_hint: None, None
-				size: 60, 60
-
-				# Usar pos_hint para colocar imágenes como children de los botones no funciona, hay que usar el center_x y center_y para ello.
-
-				center_x: self.parent.center_x
-				center_y: self.parent.center_y
+		Label:
+			text: "Pos. Inicial: 0"
+			font_size: 16
+			pos_hint: {"center_x":0.8,"center_y":0.62}
 
 		# ------------------------------ Botones del cuarto servo ----------------------------
 
 		Button:
 			size_hint: None, None
-			size: 70, 70
-			pos_hint: {"center_x":0.278, "center_y": 0.1}
+			size: 60, 60
+			pos_hint: {"center_x":0.268, "center_y": 0.12}
+			on_press: root.servo4_boton_izq()
 			
 			Image:
 				source: 'abrir.png'
 				size_hint: None, None
-				size: 60, 60
+				size: 50, 50
 
 				# Usar pos_hint para colocar imágenes como children de los botones no funciona, hay que usar el center_x y center_y para ello.
 
@@ -167,18 +145,32 @@
 
 		Button:
 			size_hint: None, None
-			size: 70, 70
-			pos_hint: {"center_x":0.378, "center_y": 0.1}
+			size: 60, 60
+			pos_hint: {"center_x":0.388, "center_y": 0.12}
 			
 			Image:
 				source: 'cerrar.png'
 				size_hint: None, None
-				size: 60, 60
+				size: 50, 50
 
 				# Usar pos_hint para colocar imágenes como children de los botones no funciona, hay que usar el center_x y center_y para ello.
 
 				center_x: self.parent.center_x
 				center_y: self.parent.center_y
+
+		Label:
+			text: "Pos. Inicial: 90"
+			font_size: 16
+			pos_hint: {"center_x":0.33,"center_y":0.21}
+
+		#Label:
+		#	canvas:
+		#		Color:
+		#			rgba: (1,1,1,1)
+		#		RoundedRectangle:
+		#			size: 30, 30
+		#			radius: [10]
+		#			pos: (0.2, 0.54)
 
 		# ---------------- Entrada de texto para que el usuario pueda ingresar número de steps para el servo -------------
 
@@ -192,7 +184,7 @@
 		Button:
 			size_hint: None, None
 			size: 70, 50
-			pos_hint: {"center_x":0.61, "center_y": 0.08}
+			pos_hint: {"center_x":0.59, "center_y": 0.08}
 			
 			Image:
 				source: 'rotar_izq_stepper.png'
@@ -207,7 +199,7 @@
 		Button:
 			size_hint: None, None
 			size: 70, 50
-			pos_hint: {"center_x":0.71, "center_y": 0.08}
+			pos_hint: {"center_x":0.73, "center_y": 0.08}
 			
 			Image:
 				source: 'rotar_der_stepper.png'
