@@ -1,6 +1,7 @@
 // Movimiento de los servos.
 
 #include <Servo.h>
+#include <Stepper.h>
 
 const byte longitud = 32;
 char recibido [longitud];

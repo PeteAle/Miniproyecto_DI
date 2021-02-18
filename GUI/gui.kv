@@ -71,7 +71,7 @@
 		# ------------------------------ Posición inicial servo 1 -------------------------
 
 		Label:
-			text: "Pos. Inicial: 0"
+			text: "Pos. Inicial: 90"
 			font_size: 16
 			pos_hint: {"center_x":0.2,"center_y":0.62}
 
@@ -96,7 +96,7 @@
 		# ------------------------------ Posición servo 2 -----------------------------
 
 		Label:
-			text: "Pos. Inicial: 0"
+			text: "Pos. Inicial: 90"
 			font_size: 16
 			pos_hint: {"center_x":0.5,"center_y":0.62}
 
@@ -121,7 +121,7 @@
 		# ------------------------------ Posición servo 3 -----------------------------
 
 		Label:
-			text: "Pos. Inicial: 0"
+			text: "Pos. Inicial: 90"
 			font_size: 16
 			pos_hint: {"center_x":0.8,"center_y":0.62}
 
@@ -163,6 +163,11 @@
 			font_size: 16
 			pos_hint: {"center_x":0.33,"center_y":0.21}
 
+		Label:
+			text: str(servo1.value)
+			font_size: 16
+			pos_hint: {"center_x":0.2, "center_y": 0.49}
+
 		#Label:
 		#	canvas:
 		#		Color:
@@ -177,14 +182,24 @@
 		TextInput:
 			size_hint: None, None
 			size: 100, 30
-			pos_hint: {"center_x":0.66, "center_y": 0.16}
+			pos_hint: {"center_x":0.71, "center_y": 0.16}
 			input_type: 'number'
 			multiline: False
+
+		Label:
+			text: "Pos. Inicial: 90"
+			font_size: 16
+			pos_hint: {"center_x":0.66, "center_y": 0.21}
+
+		Label:
+			text: "Ingrese pos."
+			font_size: 16
+			pos_hint: {"center_x":0.58, "center_y": 0.16}
 
 		Button:
 			size_hint: None, None
 			size: 70, 50
-			pos_hint: {"center_x":0.59, "center_y": 0.08}
+			pos_hint: {"center_x":0.61, "center_y": 0.08}
 			
 			Image:
 				source: 'rotar_izq_stepper.png'
@@ -199,7 +214,7 @@
 		Button:
 			size_hint: None, None
 			size: 70, 50
-			pos_hint: {"center_x":0.73, "center_y": 0.08}
+			pos_hint: {"center_x":0.71, "center_y": 0.08}
 			
 			Image:
 				source: 'rotar_der_stepper.png'

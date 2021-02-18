@@ -47,7 +47,8 @@ class main(Widget):
 		pos_garra = pos_garra + 1
 		print(pos_garra)
 
-	def servo4_boton_der(self, pos_garra):
+	def servo4_boton_der(event):
+		global pos_garra
 		pos_garra = pos_garra - 1
 		print(pos_garra)
 
