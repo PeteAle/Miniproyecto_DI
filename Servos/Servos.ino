@@ -17,6 +17,10 @@ int primerServo;  int primer_servo;
 int segundoServo; int segundo_servo;
 int tercerServo;  int tercer_servo;
 int cuartoServo;  int cuarto_servo;
+volatile int steps = 0;
+
+#define DIR 2
+#define STEP 4
 
 boolean datosNuevos = false;
 
@@ -24,6 +28,7 @@ Servo servo1;
 Servo servo2;
 Servo servo3;
 Servo servo4;
+Stepper myStepper(steps,DIR,STEP);
 
 void setup() {
   // put your setup code here, to run once:
@@ -31,6 +36,7 @@ void setup() {
   servo2.attach(10, 1000, 2000);
   servo3.attach(9, 1000, 2000);
   servo4.attach(6, 1000, 2000);
+  myStepper.setSpeed(60);
   Serial.begin(115200);
   Serial.println("Arduino conectado.");
 
@@ -120,3 +126,5 @@ void servoWrite(){
   cuarto_servo = map(cuartoServo, 0, 180, 0, 180);
   servo4.write(cuartoServo);
 }
+
+// --------------------- Escribir al stepper -------------------------
