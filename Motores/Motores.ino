@@ -1,9 +1,9 @@
 // Movimiento de los servos.
 
 #include <Servo.h>
-#include <Stepper.h>
+//#include <Stepper.h>
 
-const byte longitud = 32;
+const byte longitud = 64;
 char recibido [longitud];
 char tempChars [longitud];
 
@@ -19,10 +19,12 @@ int tercerServo;  int tercer_servo;
 int cuartoServo;  int cuarto_servo;
 int negativo;
 int previo = 0;
+int moverse;
 int pasos = 0;
 
-#define DIR 2
-#define STEP 3
+#define dirPin 2
+#define stepPin 3
+#define boton 4
 
 boolean datosNuevos = false;
 
@@ -30,19 +32,20 @@ Servo servo1;
 Servo servo2;
 Servo servo3;
 Servo servo4;
-Stepper myStepper(pasos,2,3);
+//Stepper myStepper(pasos,2,3);
 
 void setup() {
   // put your setup code here, to run once:
-  pinMode(2,OUTPUT);
-  pinMode(3,OUTPUT);
+  pinMode(dirPin,OUTPUT);
+  pinMode(stepPin,OUTPUT);
+  pinMode(4, INPUT_PULLUP);
   //pinMode(4,OUTPUT);
   //pinMode(5,OUTPUT);
   servo1.attach(11, 1000, 2000);
   servo2.attach(10, 1000, 2000);
   servo3.attach(9, 1000, 2000);
   servo4.attach(6, 1000, 2000);
-  myStepper.setSpeed(60);
+  //myStepper.setSpeed(60);
   Serial.begin(115200);
   Serial.println("Arduino conectado.");
 
@@ -130,9 +133,45 @@ void showParsedData() {
 
 // --------------------------- Escribir al stepper ------------------------------
 // El step angle del NEMA 14 es de 1.8° (360°/200 pasos/rev)
-void stepperWrite(){  
+void stepperWrite(){
+  /*if (boton == LOW){
+    pasos = 50;
+    digitalWrite(DIR,HIGH);
+    for (int i = 0; i < pasos ; i++){
+      digitalWrite(STEP, HIGH);
+      delayMicroseconds(1000);
+      digitalWrite(STEP, LOW);
+      delayMicroseconds(1000);
+    }
+    delay(10);
+  }*/
   if (negativo == 0){
     if (pasos > previo){
+      moverse = pasos - previo;
+      digitalWrite(dirPin, HIGH);
+      for (int i = 0; i < moverse ; i++){
+        digitalWrite(stepPin, HIGH);
+        delayMicroseconds(100);
+        digitalWrite(stepPin,LOW);
+        delayMicroseconds(100);
+      }
+    }
+    else if (pasos < previo){
+      moverse = previo - pasos;
+      digitalWrite(dirPin,LOW);
+      for (int i = 0; i < pasos ; i++){
+        digitalWrite(stepPin,HIGH);
+        delayMicroseconds(100);
+        digitalWrite(stepPin,LOW);
+        delayMicroseconds(100);
+      }
+    }
+    else if (pasos == previo){
+      
+    }
+    previo = pasos;
+  }
+    /*if (pasos > previo){
       pasos = pasos - previo;
       myStepper.step(pasos);
       previo = pasos; 
@@ -142,9 +181,33 @@ void stepperWrite(){
       myStepper.step(-pasos);
       previo = pasos;
     }
-  }
+  }*/
   else if (negativo == 1){
     if (pasos > previo){
+      moverse = pasos - previo;
+      digitalWrite(dirPin, LOW);
+      for (int i = 0; i < pasos ; i++){
+        digitalWrite(stepPin,HIGH);
+        delayMicroseconds(100);
+        digitalWrite(stepPin,LOW);
+        delayMicroseconds(100);
+      }
+    }
+    else if (pasos < previo){
+      moverse = previo - pasos;
+      digitalWrite(dirPin, HIGH);
+      for (int i = 0; i < pasos ; i++){
+        digitalWrite(stepPin,HIGH);
+        delayMicroseconds(100);
+        digitalWrite(stepPin,LOW);
+        delayMicroseconds(100);
+      }
+    }
+    else if (pasos == previo){
+      
+    }
+    previo = pasos;
+    /*if (pasos > previo){
       pasos = pasos - previo;
       myStepper.step(-pasos);
       previo = pasos; 
@@ -153,8 +216,9 @@ void stepperWrite(){
       pasos = previo - pasos;
       myStepper.step(pasos);
       previo = pasos;
-    }    
+    }*/
   }
+  delay(10);
 }
 
 

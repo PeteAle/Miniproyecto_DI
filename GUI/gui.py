@@ -11,6 +11,7 @@ Config.set('graphics', 'height', 600)
 Config.set('graphics', 'resizable', 0)
 
 import serial
+import time
 
 from kivy.core.window import Window
 from kivy.properties import StringProperty, NumericProperty, ObjectProperty
@@ -23,6 +24,7 @@ from kivy.uix.image import Image
 from kivy.uix.widget import Widget
 from kivy.clock import Clock
 from kivy.uix.slider import Slider
+from decimal import *
 #from kivy.lang import Builder
 
 #Builder.load_file('gui.kv')
@@ -35,7 +37,7 @@ motor1 = ""
 motor2 = ""
 motor3 = ""
 motor4 = ""
-stepper = 0
+stepper = ""
 
 class main(Widget):
 
@@ -92,6 +94,7 @@ class main(Widget):
 		ser.flushOutput()
 		#------------------------- Cerrar el puerto serial --------------------------
 		ser.close()
+		time.sleep(0.03)
 
 
 	#def slider1(self, *args):

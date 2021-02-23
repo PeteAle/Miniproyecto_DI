@@ -6,12 +6,12 @@
 		GridLayout:
 			cols: 3
 			row_force_default: True
-			row_default_height: 60
+			row_default_height: 80
 			
 			Label:
 				text: "Peter Yau 17914"
 				text_size: self.size
-				font_size: 14
+				font_size: 16
 				pos_hint: {"center_x": 0.07, "center_y": 0.98}
 				halign: 'left'
 				valign: 'top'
@@ -43,7 +43,7 @@
 			FloatLayout:
 
 				Label:
-					text: "Servo 1"
+					text: "Joint base"
 					font_size: 16
 					halign: 'center'
 					pos_hint: {'center_x': .5, 'center_y': .9}
@@ -76,7 +76,7 @@
 			FloatLayout:
 
 				Label:
-					text: "Servo 2"
+					text: "Joint 1"
 					font_size: 16
 					halign: 'center'
 					pos_hint: {'center_x': .5, 'center_y': .9}
@@ -114,7 +114,7 @@
 			FloatLayout:
 
 				Label:
-					text: "Servo 3"
+					text: "Joint 2"
 					font_size: 16
 					halign: 'center'
 					pos_hint: {'center_x': .5, 'center_y': .9}
@@ -147,7 +147,7 @@
 			FloatLayout:
 
 				Label:
-					text: "Servo 4"
+					text: "Garra"
 					font_size: 16
 					halign: 'center'
 					pos_hint: {'center_x': .5, 'center_y': .9}
@@ -185,10 +185,10 @@
 			FloatLayout:
 
 				Label:
-					text: "Stepper"
+					text: "Base giratoria"
 					font_size: 16
 					halign: 'center'
-					pos_hint: {'center_x': .336, 'center_y': .85}
+					pos_hint: {'center_x': .464, 'center_y': .85}
 
 				Slider:
 					id: stepper
@@ -198,22 +198,25 @@
 					step: 1
 					orientation: 'horizontal'
 					size_hint_x: None
-					width: 500
-					pos_hint: {'center_x': .336, 'center_y': .55}
+					width: 680
+					pos_hint: {'center_x': .464, 'center_y': .55} #.336
 					sensitivity: 'handle'
 					on_value: root.serialSend()
 
 				Label:
 					text: str(stepper.value)
 					font_size: 16
-					pos_hint: {'center_x': .336, 'center_y': .25}
+					pos_hint: {'center_x': .464, 'center_y': .25}
 
 		GridLayout:
 			cols: 6
 			#row_force_default: True
 			#row_default_height: 80
 
-			Button:
+
+			#------------------------- Este Label es solo para ordenar los grids -----------------------
+			Label:
+			#-------------------------------------------------------------------------------------------
 
 			FloatLayout:
 
@@ -274,13 +277,14 @@
 			FloatLayout:
 
 				Label:
-					text: "[b]Posición actual \n Servo 4:[/b]"
+					text: "[b]Posición actual \n Stepper:[/b]"
 					font_size: 16
 					markup: True
 					halign: 'center'
 					pos_hint: {'center_x': .5, 'center_y': .7}
-				
+
 				Label:
+					id: valStepper
 					text: str(1.8*stepper.value) + "°"
 					font_size: 18
 					pos_hint: {'center_x': .5, 'center_y': .35}
