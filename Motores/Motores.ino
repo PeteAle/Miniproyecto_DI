@@ -17,10 +17,12 @@ int primerServo;  int primer_servo;
 int segundoServo; int segundo_servo;
 int tercerServo;  int tercer_servo;
 int cuartoServo;  int cuarto_servo;
-volatile int steps = 0;
+int negativo;
+int previo = 0;
+int pasos = 0;
 
 #define DIR 2
-#define STEP 4
+#define STEP 3
 
 boolean datosNuevos = false;
 
@@ -28,10 +30,14 @@ Servo servo1;
 Servo servo2;
 Servo servo3;
 Servo servo4;
-Stepper myStepper(steps,DIR,STEP);
+Stepper myStepper(pasos,2,3);
 
 void setup() {
   // put your setup code here, to run once:
+  pinMode(2,OUTPUT);
+  pinMode(3,OUTPUT);
+  //pinMode(4,OUTPUT);
+  //pinMode(5,OUTPUT);
   servo1.attach(11, 1000, 2000);
   servo2.attach(10, 1000, 2000);
   servo3.attach(9, 1000, 2000);
@@ -50,10 +56,12 @@ void loop() {
     separarDatos();
     datosNuevos = false;
     servoWrite();
+    stepperWrite();
     showParsedData();
   }
   //Serial.println("Probando");
-  delay(100);
+  Serial.flush();
+  delay(10);
 }
 
 // ------------------ Recibir los datos y guardalos -----------------------
@@ -99,25 +107,61 @@ void separarDatos(){
 
   token = strtok(NULL, ",");
   cuartoServo = atoi(token);
+
+  token = strtok(NULL, ",");
+  pasos = atoi(token);
+
+  token = strtok(NULL, ",");
+  negativo = atoi(token);
 }
 
 // ------------------ Mostrar datos en el monitor -------------------
 
 void showParsedData() {
-    Serial.print("Primer servo:  ");
-    Serial.println(primerServo);
-    Serial.print("Segundo servo: ");
-    Serial.println(segundoServo);
-    Serial.print("Tercer servo: ");
-    Serial.println(tercerServo);
-    Serial.print("Cuarto servo: ");
-    Serial.println(cuartoServo);
+  Serial.print("Primer servo:  ");
+  Serial.println(primerServo);
+  Serial.print("Segundo servo: ");
+  Serial.println(segundoServo);
+  Serial.print("Tercer servo: ");
+  Serial.println(tercerServo);
+  Serial.print("Cuarto servo: ");
+  Serial.println(cuartoServo);
 }
+
+// --------------------------- Escribir al stepper ------------------------------
+// El step angle del NEMA 14 es de 1.8° (360°/200 pasos/rev)
+void stepperWrite(){  
+  if (negativo == 0){
+    if (pasos > previo){
+      pasos = pasos - previo;
+      myStepper.step(pasos);
+      previo = pasos; 
+    }
+    else if (pasos < previo){
+      pasos = previo - pasos;
+      myStepper.step(-pasos);
+      previo = pasos;
+    }
+  }
+  else if (negativo == 1){
+    if (pasos > previo){
+      pasos = pasos - previo;
+      myStepper.step(-pasos);
+      previo = pasos; 
+    }
+    else if (pasos < previo){
+      pasos = previo - pasos;
+      myStepper.step(pasos);
+      previo = pasos;
+    }    
+  }
+}
+
 
 // ---------------------- Escribir datos al servo para moverlos -----------------
 
 void servoWrite(){
-  primer_servo = map(primerServo, 0, 180, 0, 180);
+  primer_servo = map(primerServo, -90, 90, 0, 180);
   servo1.write(primerServo);
   segundo_servo = map(segundoServo, 0, 180, 0, 180);
   servo2.write(segundoServo);
@@ -126,5 +170,3 @@ void servoWrite(){
   cuarto_servo = map(cuartoServo, 0, 180, 0, 180);
   servo4.write(cuartoServo);
 }
-
-// --------------------- Escribir al stepper -------------------------

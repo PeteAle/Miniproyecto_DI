@@ -1,227 +1,286 @@
 <main>
-	FloatLayout:
+	GridLayout:
 		size: root.width, root.height
+		cols: 1
 
-		Label:
-			text: "Peter Yau 17914"
-			font_size: 14
-			pos_hint: {"center_x": 0.07, "center_y": 0.98}
-			color: (1,1,1,1)
-
-		Label:
-			text: "[b]GUI para controlar el brazo[/b]"
-			font_size: 28
-			markup: True
-			pos_hint: {"center_x":0.5, "center_y": 0.95}
-			color: (1,1,1,1)
-
-		# --------------- Imágenes de referencia superiores para los servos ---------------------
-
-		Image:
-			source: "joint_base.png"
-			size_hint: None, None
-			size: 170, 170
-			pos_hint: {"center_x":0.2, "center_y": 0.75}
-
-		Image:
-			source: "joint1.png"
-			size_hint: None, None
-			size: 160, 160
-			pos_hint: {"center_x":0.5, "center_y": 0.75}
-
-		Image:
-			source: "joint2.png"
-			size_hint: None, None
-			size: 160, 160
-			pos_hint: {"center_x":0.8, "center_y": 0.75}
-
-		# --------------- Imágenes de referencia inferiores para los servos ---------------------
-
-		Image:
-			source: "joint_garra.png"
-			size_hint: None, None
-			size: 150, 150
-			pos_hint: {"center_x":0.33, "center_y": 0.34}
-
-		Image:
-			source: "stepper.png"
-			size_hint: None, None
-			size: 190, 190
-			pos_hint: {"center_x":0.66, "center_y": 0.34}
-
-		# ----------------------- Sliders para cada servo -------------------------
-		# ----------------------- Slider del primer servo -------------------------
-
-		Slider:
-			id: servo1
-			min: 0
-			max: 180
-			value: 90
-			step: 1
-			orientation: 'horizontal'
-			size_hint_x: 0.29
-			pos_hint: {"center_x":0.2, "center_y": 0.54}
-			on_value: root.slider1(*args)
-
-		Label:
-			text: str(servo1.value)
-			font_size: 16
-			pos_hint: {"center_x":0.2, "center_y": 0.49}
-
-		# ------------------------------ Posición inicial servo 1 -------------------------
-
-		Label:
-			text: "Pos. Inicial: 90"
-			font_size: 16
-			pos_hint: {"center_x":0.2,"center_y":0.62}
-
-		# ------------------------- Slider del segundo servo -------------------------
-
-		Slider:
-			id: servo2
-			min: 0
-			max: 180
-			value: 90
-			step: 1
-			orientation: 'horizontal'
-			size_hint_x: 0.29
-			pos_hint: {"center_x":0.5, "center_y": 0.54}
-			on_value: root.slider2(*args)
-
-		Label:
-			text: str(servo2.value)
-			font_size: 16
-			pos_hint: {"center_x":0.5, "center_y": 0.49}
-
-		# ------------------------------ Posición servo 2 -----------------------------
-
-		Label:
-			text: "Pos. Inicial: 90"
-			font_size: 16
-			pos_hint: {"center_x":0.5,"center_y":0.62}
-
-		# ---------------------------- Slider del tercer servo -------------------------
-
-		Slider:
-			id: servo3
-			min: 0
-			max: 180
-			value: 90
-			step: 1
-			orientation: 'horizontal'
-			size_hint_x: 0.29
-			pos_hint: {"center_x":0.8, "center_y": 0.54}
-			on_value: root.slider3(*args)
-
-		Label:
-			text: str(servo3.value)
-			font_size: 16
-			pos_hint: {"center_x":0.8,"center_y":0.49}
-
-		# ------------------------------ Posición servo 3 -----------------------------
-
-		Label:
-			text: "Pos. Inicial: 90"
-			font_size: 16
-			pos_hint: {"center_x":0.8,"center_y":0.62}
-
-		# ------------------------------ Botones del cuarto servo ----------------------------
-
-		Button:
-			size_hint: None, None
-			size: 60, 60
-			pos_hint: {"center_x":0.268, "center_y": 0.12}
-			on_press: root.servo4_boton_izq()
+		GridLayout:
+			cols: 3
+			row_force_default: True
+			row_default_height: 60
 			
+			Label:
+				text: "Peter Yau 17914"
+				text_size: self.size
+				font_size: 14
+				pos_hint: {"center_x": 0.07, "center_y": 0.98}
+				halign: 'left'
+				valign: 'top'
+				color: (1,1,1,1)
+
+			Label:
+				text: "[b]GUI para controlar el brazo[/b]"
+				font_size: 28
+				markup: True
+				pos_hint: {"center_x":0.5, "center_y": 0.95}
+				color: (1,1,1,1)
+
+			# ------------ Este label es solo para ordenar bien el GridLayout ----------
+			Label:
+			# --------------------------------------------------------------------------
+
+		GridLayout:
+			cols: 4
+			spacing: 20
+
 			Image:
-				source: 'abrir.png'
-				size_hint: None, None
-				size: 50, 50
+				source: "joint_base.png"
+				size_hint_y: None
+				size_hint_x: None
+				width: 160
+				height: 120
+				
 
-				# Usar pos_hint para colocar imágenes como children de los botones no funciona, hay que usar el center_x y center_y para ello.
+			FloatLayout:
 
-				center_x: self.parent.center_x
-				center_y: self.parent.center_y
+				Label:
+					text: "Servo 1"
+					font_size: 16
+					halign: 'center'
+					pos_hint: {'center_x': .5, 'center_y': .9}
 
-		Button:
-			size_hint: None, None
-			size: 60, 60
-			pos_hint: {"center_x":0.388, "center_y": 0.12}
-			
+				Slider:
+					id: servo1
+					min: 0
+					max: 180
+					value: 90
+					step: 1
+					orientation: 'horizontal'
+					size_hint_x: None
+					width: 250
+					pos_hint: {'center_x': .5, 'center_y': .6}
+					sensitivity: 'handle'
+					on_value: root.serialSend()
+
+				Label:
+					text: str(servo1.value)
+					font_size: 16
+					pos_hint: {'center_x': .5, 'center_y': .3}
+
 			Image:
-				source: 'cerrar.png'
-				size_hint: None, None
-				size: 50, 50
+				source: "joint1.png"
+				size_hint_y: None
+				size_hint_x: None
+				width: 160
+				height: 120
 
-				# Usar pos_hint para colocar imágenes como children de los botones no funciona, hay que usar el center_x y center_y para ello.
+			FloatLayout:
 
-				center_x: self.parent.center_x
-				center_y: self.parent.center_y
+				Label:
+					text: "Servo 2"
+					font_size: 16
+					halign: 'center'
+					pos_hint: {'center_x': .5, 'center_y': .9}
 
-		Label:
-			text: "Pos. Inicial: 90"
-			font_size: 16
-			pos_hint: {"center_x":0.33,"center_y":0.21}
+				Slider:
+					id: servo2
+					min: 0
+					max: 180
+					value: 90
+					step: 1
+					orientation: 'horizontal'
+					size_hint_x: None
+					width: 250
+					pos_hint: {'center_x': .5, 'center_y': .6}
+					sensitivity: 'handle'
+					on_value: root.serialSend()
 
-		Label:
-			text: str(servo1.value)
-			font_size: 16
-			pos_hint: {"center_x":0.2, "center_y": 0.49}
+				Label:
+					text: str(servo2.value)
+					font_size: 16
+					pos_hint: {'center_x': .5, 'center_y': .3}
 
-		#Label:
-		#	canvas:
-		#		Color:
-		#			rgba: (1,1,1,1)
-		#		RoundedRectangle:
-		#			size: 30, 30
-		#			radius: [10]
-		#			pos: (0.2, 0.54)
+		GridLayout:
+			cols: 4
+			spacing: 20
 
-		# ---------------- Entrada de texto para que el usuario pueda ingresar número de steps para el servo -------------
-
-		TextInput:
-			size_hint: None, None
-			size: 100, 30
-			pos_hint: {"center_x":0.71, "center_y": 0.16}
-			input_type: 'number'
-			multiline: False
-
-		Label:
-			text: "Pos. Inicial: 90"
-			font_size: 16
-			pos_hint: {"center_x":0.66, "center_y": 0.21}
-
-		Label:
-			text: "Ingrese pos."
-			font_size: 16
-			pos_hint: {"center_x":0.58, "center_y": 0.16}
-
-		Button:
-			size_hint: None, None
-			size: 70, 50
-			pos_hint: {"center_x":0.61, "center_y": 0.08}
-			
 			Image:
-				source: 'rotar_izq_stepper.png'
-				size_hint: None, None
-				size: 60, 60
+				source: "joint2.png"
+				size_hint_y: None
+				size_hint_x: None
+				width: 160
+				height: 120
+				
 
-				# Usar pos_hint para colocar imágenes como children de los botones no funciona, hay que usar el center_x y center_y para ello.
+			FloatLayout:
 
-				center_x: self.parent.center_x
-				center_y: self.parent.center_y
+				Label:
+					text: "Servo 3"
+					font_size: 16
+					halign: 'center'
+					pos_hint: {'center_x': .5, 'center_y': .9}
 
-		Button:
-			size_hint: None, None
-			size: 70, 50
-			pos_hint: {"center_x":0.71, "center_y": 0.08}
-			
+				Slider:
+					id: servo3
+					min: 0
+					max: 180
+					value: 90
+					step: 1
+					orientation: 'horizontal'
+					size_hint_x: None
+					width: 250
+					pos_hint: {'center_x': .5, 'center_y': .6}
+					sensitivity: 'handle'
+					on_value: root.serialSend()
+
+				Label:
+					text: str(servo3.value)
+					font_size: 16
+					pos_hint: {'center_x': .5, 'center_y': .3}
+
 			Image:
-				source: 'rotar_der_stepper.png'
-				size_hint: None, None
-				size: 60, 60
+				source: "joint_garra.png"
+				size_hint_y: None
+				size_hint_x: None
+				width: 160
+				height: 120
 
-				# Usar pos_hint para colocar imágenes como children de los botones no funciona, hay que usar el center_x y center_y para ello.
+			FloatLayout:
 
-				center_x: self.parent.center_x
-				center_y: self.parent.center_y
+				Label:
+					text: "Servo 4"
+					font_size: 16
+					halign: 'center'
+					pos_hint: {'center_x': .5, 'center_y': .9}
+
+				Slider:
+					id: servo4
+					min: 0
+					max: 180
+					value: 90
+					step: 1
+					orientation: 'horizontal'
+					size_hint_x: None
+					width: 250
+					pos_hint: {'center_x': .5, 'center_y': .6}
+					sensitivity: 'handle'
+					on_value: root.serialSend()
+
+				Label:
+					text: str(servo4.value)
+					font_size: 16
+					pos_hint: {'center_x': .5, 'center_y': .3}
+
+		GridLayout:
+			cols: 2
+			spacing: 40
+
+			Image:
+				source: "stepper.png"
+				size_hint_y: None
+				size_hint_x: None
+				width: 160
+				height: 120
+				
+
+			FloatLayout:
+
+				Label:
+					text: "Stepper"
+					font_size: 16
+					halign: 'center'
+					pos_hint: {'center_x': .336, 'center_y': .85}
+
+				Slider:
+					id: stepper
+					min: -200
+					max: 200
+					value: 0
+					step: 1
+					orientation: 'horizontal'
+					size_hint_x: None
+					width: 500
+					pos_hint: {'center_x': .336, 'center_y': .55}
+					sensitivity: 'handle'
+					on_value: root.serialSend()
+
+				Label:
+					text: str(stepper.value)
+					font_size: 16
+					pos_hint: {'center_x': .336, 'center_y': .25}
+
+		GridLayout:
+			cols: 6
+			#row_force_default: True
+			#row_default_height: 80
+
+			Button:
+
+			FloatLayout:
+
+				Label:
+					text: "[b]Posición actual \n Servo 1:[/b]"
+					font_size: 16
+					markup: True
+					halign: 'center'
+					pos_hint: {'center_x': .5, 'center_y': .7}
+				
+				Label:
+					text: str(servo1.value) + "°"
+					font_size: 18
+					pos_hint: {'center_x': .5, 'center_y': .35}
+
+			FloatLayout:
+
+				Label:
+					text: "[b]Posición actual \n Servo 2:[/b]"
+					font_size: 16
+					markup: True
+					halign: 'center'
+					pos_hint: {'center_x': .5, 'center_y': .7}
+				
+				Label:
+					text: str(servo2.value) + "°"
+					font_size: 18
+					pos_hint: {'center_x': .5, 'center_y': .35}
+
+			FloatLayout:
+
+				Label:
+					text: "[b]Posición actual \n Servo 3:[/b]"
+					font_size: 16
+					markup: True
+					halign: 'center'
+					pos_hint: {'center_x': .5, 'center_y': .7}
+				
+				Label:
+					text: str(servo3.value) + "°"
+					font_size: 18
+					pos_hint: {'center_x': .5, 'center_y': .35}
+
+			FloatLayout:
+
+				Label:
+					text: "[b]Posición actual \n Servo 4:[/b]"
+					font_size: 16
+					markup: True
+					halign: 'center'
+					pos_hint: {'center_x': .5, 'center_y': .7}
+				
+				Label:
+					text: str(servo4.value) + "°"
+					font_size: 18
+					pos_hint: {'center_x': .5, 'center_y': .35}
+
+			FloatLayout:
+
+				Label:
+					text: "[b]Posición actual \n Servo 4:[/b]"
+					font_size: 16
+					markup: True
+					halign: 'center'
+					pos_hint: {'center_x': .5, 'center_y': .7}
+				
+				Label:
+					text: str(1.8*stepper.value) + "°"
+					font_size: 18
+					pos_hint: {'center_x': .5, 'center_y': .35}
