@@ -30,12 +30,11 @@ from kivy.uix.slider import Slider
 ser = serial.Serial(port='COM3', baudrate=115200, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS, timeout=0)
 
 negativo = ""
-pos_garra = 90
 separador = ","
 motor1 = ""
 motor2 = ""
 motor3 = ""
-motor4 = 90
+motor4 = ""
 stepper = 0
 
 class main(Widget):
